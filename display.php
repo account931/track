@@ -85,10 +85,40 @@ Password:&nbsp<input type="password" name="pass1" required class="resultRu">
 <?php
 //echo file_get_contents( "ipTrack.txt" ); // get the contents in REVERSE , and echo it out
 //doing  reverse-temporary  disabled,trying  to  ressigned  to AJAX
+
+$coutriesIP = array(
+        'Lithuania'   => '188.69.232.129',
+	'Paris'       => '176.161.170.36',
+	'Estonia'     => '213.35.160.50',
+	'Switzerland' => '46.253.189.218',
+	'Hungary'     => '93.189.114.202',
+	'Latvia'      => '213.175.127.228',
+	'Bulgaria'    => '82.137.91.112',
+	'Nice'        => '193.57.185.10',
+	'Brussels'    => '85.119.216.74',
+	'Netherland'  => '92.70.92.181',
+    'Turkey'      => '95.2.184.235',
+);
 $file = file("ipTrack.txt");
 $file = array_reverse($file);
 foreach($file as $f){
-    echo $f."<br />";}
+    //if(trim($f) !='') {var_dump($f);}
+    echo $f; //display the file line itself (ip address, time, etc)
+    //display alert sign if IP is foreign(not DK)
+    if (trim($f) !='' && !preg_match('/93.165.147.58|82.163.120.154|152.115.135.54/', $f)) { 
+	    echo '<span style="color:red;font-size:0.6em;">foreign </span>'; 
+		//dispaly foreign country if it is in $coutriesIP
+		foreach($coutriesIP as $key => $val){ 
+			if(preg_match("/$val/", $f)) { 
+			    echo '<span style="color:red; font-size:0.6em;">' .  $key . '</span>'; 
+			}
+			
+		}
+	}	
+	echo "<br/>";
+	//if (trim($f) !='' && !preg_match('/93.165.147.58/', $f)) { echo '<span style="color:red;">foreign </span>'; }
+	//if (str_contains('93.165.147.58', $f)) { echo 'foreign '; }
+}
 
 
 
