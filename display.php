@@ -88,6 +88,8 @@ Password:&nbsp<input type="password" name="pass1" required class="resultRu">
 //echo file_get_contents( "ipTrack.txt" ); // get the contents in REVERSE , and echo it out
 //doing  reverse-temporary  disabled,trying  to  ressigned  to AJAX
 
+// Version 1
+/*
 $coutriesIP = array(
     'Brussels'    => '85.119.216.74',
 	'Bulgaria'    => '82.137.91.112',
@@ -103,10 +105,36 @@ $coutriesIP = array(
 	'Turkey'      => '5.2.184.235',
 	                  
 );
+*/
+
+
+//Version 2
+$coutriesIP = array(
+    'Belgium'     => array('Brussels'  => '85.119.216.74'),
+	'Bulgaria'    => array('Sofia'     => '82.137.91.112'),
+	'Estonia'     => array('Tallin'    => '213.35.160.50'),
+	'Italy'     => array('Milan'       => '94.85.248.193', 'Bergamo'    => '151.14.9.35', 'Rimini' => '93.44.124.219'),
+	'Hungary'     => array('Budapest' => '93.189.114.202'),
+	'Latvia'      => array('Riga'      => '213.175.127.228'),
+	'Lithuania'   => array('Vilnus'    => '188.69.232.129'),
+	'Netherland'  => array('Amsterdam' => '92.70.92.181'),
+	'France'      => array('Nice'      => '193.57.185.10', 'Paris' => '176.161.170.36'),
+	'Norway'      => array('Oslo'      => '176.221.91.52'),
+	'San Marino'  => array('San Marino'=> '194.183.83.62'),
+	'Spain'       => array('Barcelona' => '62.36.43.138', 'Palma de Mallorca' => '77.224.123.19'),
+	'Switzerland' => array('Geneva'    => '46.253.189.218'),
+	'Turkey'      => array('Istanbul'  => '5.2.184.235'),
+	                  
+);
+
 $file = file("ipTrack.txt");
 $file = array_reverse($file);
 //$copenIP = "/\93.165.147\b/";
- $copenIP = '/93.165.147.58(\.com)?/';
+//$copenIP = '/93.165.147.58(\.com)?/';
+
+
+//Version 1 ---------
+/*
 foreach($file as $f){  
     //if(trim($f) !='') {var_dump($f);}
 	
@@ -128,6 +156,37 @@ foreach($file as $f){
 	echo "<br/>";
 
 }
+*/
+//End Version 1 ----------
+
+
+//Version 2 --------------
+foreach($file as $f){  
+    //if(trim($f) !='') {var_dump($f);}
+	
+    echo $f; //display the file line itself (ip address, time, etc)
+	
+	//display alert sign if IP is foreign(not DK)
+	if (trim($f) !='' && !preg_match('/93.165.147.58|82.163.120.154|152.115.135.54/', $f)) { 
+	    echo '<span style="color:red;font-size:0.5em;">foreign </span> 
+		      <span style="color:red;font-size:0.7em;"> &#9730; : </span>';   //html icon
+			  
+		    //dispaly foreign country if it is in $coutriesIP
+		    $detectedCountry = "not in the list";
+		    foreach($coutriesIP as $country => $arr){
+			    foreach($arr as $city => $cityIp) {
+			
+			        if(preg_match("/$cityIp/", $f)) { 
+			            $detectedCountry = $country  . ', ' . $city ;
+			        }
+			    }
+		    }
+		echo '<span style="color:red; text-decoration: underline; font-size:0.6em;">' .  $detectedCountry . '</span>'; 
+	}
+	echo "<br/>";
+
+}
+//End Version 2 --------------
 
 
 
