@@ -227,8 +227,9 @@ foreach($file as $f){
 
 <?php
 //checking password
+include "./Credentials/password.php";
 if(isset($_POST['pass1'])){
-    if($_POST['login1']=='account931' && $_POST['pass1']=='loyalty') {
+    if($_POST['login1']=='account931' && $_POST['pass1'] == TRACK_ADMIN_PASSWORD) { //Credentials/password.php
         $_SESSION['auth']=true;echo'true';
 		header ('Location: display.php');
     } else {
