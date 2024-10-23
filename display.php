@@ -113,13 +113,13 @@ $coutriesIP = array(
     'Belgium'     => array('Brussels'  => '85.119.216.74'),
 	'Bulgaria'    => array('Sofia'     => '82.137.91.112'),
 	'Estonia'     => array('Tallin'    => '213.35.160.50'),
-	'Italy'     => array('Milan'       => '94.85.248.193', 'Bergamo'    => '151.14.9.35', 'Rimini' => '93.44.124.219'),
-	'Hungary'     => array('Budapest' => '93.189.114.202'),
+	'Italy'       => array('Milan'     => '94.85.248.193', 'Bergamo' => '151.14.9.35', 'Rimini' => '93.44.124.219'),
+	'Hungary'     => array('Budapest'  => '93.189.114.202'),
 	'Latvia'      => array('Riga'      => '213.175.127.228'),
 	'Lithuania'   => array('Vilnus'    => '188.69.232.129'),
 	'Netherland'  => array('Amsterdam' => '92.70.92.181'),
 	'France'      => array('Nice'      => '193.57.185.10', 'Paris' => '176.161.170.36'),
-	'Norway'      => array('Oslo'      => '176.221.91.52'),
+	'Norway'      => array('Oslo'      => array('176.221.91.52', '84.49.138.202')),
 	'San Marino'  => array('San Marino'=> '194.183.83.62'),
 	'Spain'       => array('Barcelona' => '62.36.43.138', 'Palma de Mallorca' => '77.224.123.19'),
 	'Switzerland' => array('Geneva'    => '46.253.189.218'),
@@ -173,12 +173,25 @@ foreach($file as $f){
 			  
 		    //dispaly foreign country if it is in $coutriesIP
 		    $detectedCountry = "not in the list";
-		    foreach($coutriesIP as $country => $arr){
-			    foreach($arr as $city => $cityIp) {
 			
-			        if(preg_match("/$cityIp/", $f)) { 
-			            $detectedCountry = $country  . ', ' . $city ;
-			        }
+		    foreach($coutriesIP as $country => $arr){
+				
+			    foreach($arr as $city => $cityIp) { 
+					
+					//if city ip is not single Ip, but a list of IPs (array), e.g 'Oslo' => array('176.221.91.52', '84.49.138.202')),
+					if(is_array($cityIp)){ 
+					    foreach($cityIp as $oneIP) {	
+						    if(preg_match("/$oneIP/", $f)) { 
+			                    $detectedCountry = $country  . ', ' . $city ;
+			                }
+						}
+					//if city ip is single Ip, e.g 'Barcelona' => '62.36.43.138',
+					} else {  
+			
+			            if(preg_match("/$cityIp/", $f)) { 
+			                $detectedCountry = $country  . ', ' . $city ;
+			            }
+					}
 			    }
 		    }
 		echo '<span style="color:red; text-decoration: underline; font-size:0.6em;">' .  $detectedCountry . '</span>'; 
@@ -229,7 +242,7 @@ foreach($file as $f){
 //checking password
 include "./Credentials/password.php";
 if(isset($_POST['pass1'])){
-    if($_POST['login1']=='account931' && $_POST['pass1'] == TRACK_ADMIN_PASSWORD) { //Credentials/password.php
+    if($_POST['login1']==TRACK_ADMIN_LOGIN && $_POST['pass1'] == TRACK_ADMIN_PASSWORD) { //Credentials/password.php
         $_SESSION['auth']=true;echo'true';
 		header ('Location: display.php');
     } else {
