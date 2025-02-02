@@ -110,21 +110,27 @@ $coutriesIP = array(
 
 //Version 2
 $coutriesIP = array(
+    'Albania'     => array('Berat' => '185.139.4.37', 'Gjirokaster'  => '79.106.124.228', 'Tirana' => '80.78.65.170'),
     'Belgium'     => array('Brussels'  => '85.119.216.74'),
+    'Bosnia'      => array('Trebinje'  => '134.90.129.254'),
 	'Bulgaria'    => array('Sofia'     => '82.137.91.112'),
 	'Estonia'     => array('Tallin'    => '213.35.160.50'),
+	'Greece'      => array('Athens'    => '185.16.164.67'),
     'France'      => array('Nice'      => '193.57.185.10', 'Paris' => '176.161.170.36'),
 	'Italy'       => array('Milan'     => '94.85.248.193', 'Bergamo' => '151.14.9.35', 'Rimini' => '93.44.124.219'),
-	'Hungary'     => array('Budapest'  => '93.189.114.202'),
+	'Hungary'     => array('Budapest'  => array('93.189.114.202', '93.189.114.202')),
 	'Latvia'      => array('Riga'      => '213.175.127.228'),
 	'Lithuania'   => array('Vilnus'    => '188.69.232.129'),
+	'Montenegro'  => array('Podgorica' => '31.204.228.129', 'Kotor' => '62.4.63.5'),
 	'Netherland'  => array('Amsterdam' => '92.70.92.181'),
 	'Poland'      => array('Warsaw'    => '5.226.109.135'),
 	'Norway'      => array('Oslo'      => array('176.221.91.52', '84.49.138.202')),
+	'Romania'     => array('Bucharest' => '176.126.221.42'),
 	'San Marino'  => array('San Marino'=> '194.183.83.62'),
 	'Spain'       => array('Barcelona' => '62.36.43.138', 'Palma de Mallorca' => '77.224.123.19'),
 	'Switzerland' => array('Geneva'    => '46.253.189.218'),
 	'Turkey'      => array('Istanbul'  => '5.2.184.235'),
+	'UAE'         => array('Dubai'     => '91.72.205.230', 'Abu Dhabi' => '37.218.226.10'),
 	                  
 );
 
